@@ -4,34 +4,34 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
-# 1. Set random seed for reproducible results
+# 1. Set seed for reproducibility
 torch.manual_seed(42)
 
-# 2. Define Data Transformations (Convert raw images to Tensors & Normalize pixel values)
+# 2. Define Data Transformations (Convert images to Tensors & Normalize pixel values)
 transform = transforms.Compose([
     transforms.ToTensor(),
-    transforms.Normalize((0.1307,), (0.3081,)) # MNIST dataset mean and standard deviation
+    transforms.Normalize((0.1307,), (0.3081,)) # MNIST mean and std
 ])
 
 print("Downloading and loading MNIST dataset...")
 train_dataset = datasets.MNIST(root='./data/raw', train=True, download=True, transform=transform)
 test_dataset  = datasets.MNIST(root='./data/raw', train=False, download=True, transform=transform)
 
-# DataLoader automatically splits dataset into mini-batches of 64 images
+# DataLoader automatically splits dataset into batches of 64 images
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader  = DataLoader(test_dataset, batch_size=1000, shuffle=False)
 
-# 3. Define Neural Network for Digit Classification (28x28 pixels = 784 inputs -> 10 output digit classes)
+# 3. Define Neural Network for Digit Classification (28x28 pixels = 784 inputs -> 10 digit classes)
 class MNISTClassifier(nn.Module):
     def __init__(self):
         super().__init__()
-        self.flatten = nn.Flatten() # Reshape 28x28 2D image matrix into 784 1D vector
+        self.flatten = nn.Flatten() # Reshape 28x28 image matrix into 784 vector
         self.net = nn.Sequential(
             nn.Linear(784, 128),
             nn.ReLU(),
             nn.Linear(128, 64),
             nn.ReLU(),
-            nn.Linear(64, 10) # 10 outputs corresponding to digit scores 0 through 9
+            nn.Linear(64, 10) # 10 outputs for digits 0 to 9
         )
 
     def forward(self, x):
