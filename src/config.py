@@ -1,27 +1,28 @@
 import os
 
-# Central Configuration for NanoLLM Experiments
+# Central Configuration for NanoLLM & GPT Model Experiments
 
 # 1. System & Reproducibility Settings
 SEED = 42
 
 # 2. File & Directory Paths
 DATA_DIR = './data/raw'
+PREPARED_DATA_DIR = './data/prepared'
 CHECKPOINT_DIR = 'checkpoints'
 RUN_LOGS_DIR = 'experiments/run_logs'
 
-# 3. Model Architecture Parameters (MNIST Baseline)
-INPUT_DIM = 784   # 28x28 pixels
-HIDDEN_DIM1 = 128
-HIDDEN_DIM2 = 64
-OUTPUT_DIM = 10   # Digits 0-9
+# 3. GPT Model Architecture Parameters
+VOCAB_SIZE = 65   # Unique characters in Tiny Shakespeare
+N_EMBD = 32       # Embedding vector dimension (d_model)
+BLOCK_SIZE = 8    # Context window length (T)
 
 # 4. Training Hyperparameters
-BATCH_SIZE = 64
+BATCH_SIZE = 4    # Mini-batch size (B)
 LEARNING_RATE = 0.001
 EPOCHS = 5
 
 # Ensure output directories exist automatically upon import
 os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(PREPARED_DATA_DIR, exist_ok=True)
 os.makedirs(CHECKPOINT_DIR, exist_ok=True)
 os.makedirs(RUN_LOGS_DIR, exist_ok=True)
