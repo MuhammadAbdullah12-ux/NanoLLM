@@ -15,6 +15,7 @@ RUN_LOGS_DIR = 'experiments/run_logs'
 VOCAB_SIZE = 65   # Unique characters in Tiny Shakespeare
 N_EMBD = 32       # Embedding vector dimension (d_model)
 BLOCK_SIZE = 8    # Context window length (T)
+HEAD_SIZE = 16    # Dimension of single self-attention head projection (d_k)
 
 # 4. Training Hyperparameters
 BATCH_SIZE = 4    # Mini-batch size (B)
