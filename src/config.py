@@ -17,6 +17,7 @@ N_EMBD = 32       # Embedding vector dimension (d_model)
 BLOCK_SIZE = 8    # Context window length (T)
 NUM_HEADS = 4     # Number of parallel multi-head attention heads
 HEAD_SIZE = N_EMBD // NUM_HEADS  # Dimension per head (32 // 4 = 8)
+N_LAYER = 3       # Number of stacked Transformer Blocks
 
 # 4. Training Hyperparameters
 BATCH_SIZE = 4    # Mini-batch size (B)
