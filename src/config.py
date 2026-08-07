@@ -19,10 +19,15 @@ NUM_HEADS = 4     # Number of parallel multi-head attention heads
 HEAD_SIZE = N_EMBD // NUM_HEADS  # Dimension per head (32 // 4 = 8)
 N_LAYER = 3       # Number of stacked Transformer Blocks
 
-# 4. Training Hyperparameters
+# 4. Training Hyperparameters & Scheduler Parameters
 BATCH_SIZE = 4    # Mini-batch size (B)
-LEARNING_RATE = 0.001
+LEARNING_RATE = 0.001  # Maximum learning rate (lr_max)
 EPOCHS = 5
+
+# --- TASK 15.2 ADDITION: LEARNING RATE SCHEDULER PARAMETERS ---
+WARMUP_ITERS = 100     # Number of steps to ramp up from 0 to LEARNING_RATE
+LR_DECAY_ITERS = 2000  # Number of steps to decay down to MIN_LR
+MIN_LR = 1e-4          # Minimum learning rate floor (0.0001)
 
 # Ensure output directories exist automatically upon import
 os.makedirs(DATA_DIR, exist_ok=True)

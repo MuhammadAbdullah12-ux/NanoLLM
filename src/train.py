@@ -5,6 +5,7 @@ import config
 from day9_data_loader import get_batch
 from model import GPTLanguageModel
 from tokenizer import decode
+from day15_lr_scheduler import get_lr
 
 # Set seed for reproducibility
 torch.manual_seed(config.SEED)
@@ -28,17 +29,22 @@ def estimate_loss(eval_iters=50):
     model.train()
     return out
 
-# 2. The Training Loop (2,000 Steps)
+# 2. The Training Loop with Dynamic Cosine LR Scheduling (Task 15.4)
 max_iters = 2000
 eval_interval = 200
 
-print(f"--- Task 14.3 & 14.4: Training GPT on Shakespeare ({max_iters} Steps) ---\n")
+print(f"--- Task 15.4: Training GPT with Warmup + Cosine Decay ({max_iters} Steps) ---\n")
 
 for iter in range(1, max_iters + 1):
+    # --- TASK 15.4 ADDITION: DYNAMIC LEARNING RATE UPDATE ---
+    lr = get_lr(iter)
+    for param_group in optimizer.param_groups:
+        param_group['lr'] = lr
+
     # Evaluate loss on train and val sets periodically
     if iter % eval_interval == 0 or iter == 1:
         losses = estimate_loss()
-        print(f"Step [{iter:4d}/{max_iters}] | Train Loss: {losses['train']:.4f} | Val Loss: {losses['val']:.4f}")
+        print(f"Step [{iter:4d}/{max_iters}] | Current LR: {lr:.6f} | Train Loss: {losses['train']:.4f} | Val Loss: {losses['val']:.4f}")
 
     # 1. Fetch mini-batch
     xb, yb = get_batch('train')
@@ -61,7 +67,7 @@ print(f"Model saved to '{checkpoint_path}'")
 
 # 4. Generate Shakespeare Text from Trained Model!
 print("\n" + "=" * 50)
-print("🎭 GENERATED SHAKESPEARE TEXT FROM TRAINED GPT MODEL:")
+print("🎭 GENERATED SHAKESPEARE TEXT WITH COSINE DECAY TRAINED MODEL:")
 print("=" * 50)
 
 context = torch.zeros((1, 1), dtype=torch.long)  # Start prompt: '\n'
