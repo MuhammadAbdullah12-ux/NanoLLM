@@ -11,16 +11,16 @@ PREPARED_DATA_DIR = './data/prepared'
 CHECKPOINT_DIR = 'checkpoints'
 RUN_LOGS_DIR = 'experiments/run_logs'
 
-# 3. GPT Model Architecture Parameters
+# 3. Scaled GPT Model Architecture Parameters (Task 17.2)
 VOCAB_SIZE = 65   # Unique characters in Tiny Shakespeare
-N_EMBD = 32       # Embedding vector dimension (d_model)
-BLOCK_SIZE = 8    # Context window length (T)
+N_EMBD = 64       # Scaled embedding vector dimension (was 32)
+BLOCK_SIZE = 64   # Scaled context window length (was 8)
 NUM_HEADS = 4     # Number of parallel multi-head attention heads
-HEAD_SIZE = N_EMBD // NUM_HEADS  # Dimension per head (32 // 4 = 8)
-N_LAYER = 3       # Number of stacked Transformer Blocks
+HEAD_SIZE = N_EMBD // NUM_HEADS  # Dimension per head (64 // 4 = 16)
+N_LAYER = 4       # Scaled number of Transformer Blocks (was 3)
 
 # 4. Training Hyperparameters & Scheduler Parameters
-BATCH_SIZE = 4        # Mini-batch size (B)
+BATCH_SIZE = 16       # Scaled mini-batch size (was 4)
 LEARNING_RATE = 0.001 # Maximum learning rate (lr_max)
 EPOCHS = 5
 
@@ -28,7 +28,6 @@ WARMUP_ITERS = 100     # Number of steps to ramp up from 0 to LEARNING_RATE
 LR_DECAY_ITERS = 2000  # Number of steps to decay down to MIN_LR
 MIN_LR = 1e-4          # Minimum learning rate floor (0.0001)
 
-# --- TASK 16.2 ADDITION: GRADIENT CLIPPING & WEIGHT DECAY PARAMETERS ---
 GRAD_CLIP = 1.0        # Maximum allowed gradient norm threshold
 WEIGHT_DECAY = 0.1     # Decoupled L2 regularization coefficient for AdamW
 
