@@ -16,6 +16,7 @@ class SingleHeadAttention(nn.Module):
         self.query = nn.Linear(config.N_EMBD, head_size, bias=False)
         self.value = nn.Linear(config.N_EMBD, head_size, bias=False)
         self.register_buffer('tril', torch.tril(torch.ones(config.BLOCK_SIZE, config.BLOCK_SIZE)))
+        self.dropout = nn.Dropout(config.DROPOUT)  # Task 18.4: Attention Dropout
 
     def forward(self, x):
         B, T, C = x.shape
@@ -27,6 +28,7 @@ class SingleHeadAttention(nn.Module):
         wei = q @ k.transpose(-2, -1) * (head_size ** -0.5)
         wei = wei.masked_fill(self.tril[:T, :T] == 0, float('-inf'))
         wei = F.softmax(wei, dim=-1)
+        wei = self.dropout(wei)  # Task 18.4: Apply dropout to attention weights
         out = wei @ v
         return out
 
@@ -36,10 +38,12 @@ class MultiHeadAttention(nn.Module):
         super().__init__()
         self.heads = nn.ModuleList([SingleHeadAttention(head_size) for _ in range(num_heads)])
         self.proj  = nn.Linear(num_heads * head_size, config.N_EMBD)
+        self.dropout = nn.Dropout(config.DROPOUT)  # Task 18.4: Residual Projection Dropout
 
     def forward(self, x):
         out = torch.cat([h(x) for h in self.heads], dim=-1)
-        return self.proj(out)
+        out = self.dropout(self.proj(out))  # Task 18.4: Apply dropout to projection
+        return out
 
 # 3. Feed-Forward Network
 class FeedForward(nn.Module):
@@ -48,7 +52,8 @@ class FeedForward(nn.Module):
         self.net = nn.Sequential(
             nn.Linear(n_embd, 4 * n_embd),
             nn.GELU(),
-            nn.Linear(4 * n_embd, n_embd)
+            nn.Linear(4 * n_embd, n_embd),
+            nn.Dropout(config.DROPOUT)  # Task 18.4: Residual Projection Dropout
         )
 
     def forward(self, x):
@@ -75,6 +80,7 @@ class GPTLanguageModel(nn.Module):
         super().__init__()
         self.token_embedding_table    = nn.Embedding(config.VOCAB_SIZE, config.N_EMBD)
         self.position_embedding_table = nn.Embedding(config.BLOCK_SIZE, config.N_EMBD)
+        self.embd_dropout = nn.Dropout(config.DROPOUT)  # Task 18.4: Embedding Dropout
         self.blocks  = nn.Sequential(*[Block(config.N_EMBD, config.NUM_HEADS) for _ in range(config.N_LAYER)])
         self.ln_f    = nn.LayerNorm(config.N_EMBD)
         self.lm_head = nn.Linear(config.N_EMBD, config.VOCAB_SIZE)
@@ -84,6 +90,7 @@ class GPTLanguageModel(nn.Module):
         tok_emb = self.token_embedding_table(idx)
         pos_emb = self.position_embedding_table(torch.arange(T, device=idx.device))
         x = tok_emb + pos_emb
+        x = self.embd_dropout(x)  # Task 18.4: Apply dropout to embeddings
         x = self.blocks(x)
         x = self.ln_f(x)
         logits = self.lm_head(x)

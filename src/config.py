@@ -30,6 +30,7 @@ MIN_LR = 1e-4          # Minimum learning rate floor (0.0001)
 
 GRAD_CLIP = 1.0        # Maximum allowed gradient norm threshold
 WEIGHT_DECAY = 0.1     # Decoupled L2 regularization coefficient for AdamW
+DROPOUT = 0.1          # Probability of zeroing activations during training (10%)
 
 # Ensure output directories exist automatically upon import
 os.makedirs(DATA_DIR, exist_ok=True)
