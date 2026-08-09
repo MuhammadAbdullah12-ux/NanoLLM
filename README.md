@@ -1,23 +1,31 @@
-# 🚀 NanoLLM: Building a Mini-GPT Transformer From Scratch (Days 1–21 Complete)
+# 🚀 NanoLLM: Building & Fine-Tuning a GPT Transformer (Days 1–26 Complete)
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![HuggingFace](https://img.shields.io/badge/HuggingFace-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/)
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**NanoLLM** is a complete, educational implementation of an autoregressive Small Language Model (GPT-2 style Transformer architecture) built completely from scratch using raw PyTorch. 
-
-Over 21 intensive days, this project progresses from fundamental PyTorch tensors to an $8.4\times$ scaled **211,777-parameter Mini-GPT** trained on Tiny Shakespeare, featuring **Cosine LR Scheduling**, **Gradient Clipping**, **AdamW Weight Decay**, **Inverted Dropout**, **Temperature / Top-K / Top-P (Nucleus) Sampling**, and an **Interactive Generation CLI Playground**.
+**NanoLLM** is a complete 4-week, 26-day educational codebase for building, training, evaluating, and fine-tuning an autoregressive Small Language Model (GPT Transformer architecture) from scratch in raw PyTorch and Hugging Face.
 
 ---
 
-## 🌟 Key Performance & Architecture Highlights
+## 🌟 Major Highlights & Accomplishments
 
-* **Architecture**: Scaled 4-Block Pre-LN Causal Transformer (`N_EMBD = 64`, `BLOCK_SIZE = 64`, `N_LAYER = 4`, `NUM_HEADS = 4`).
-* **Trainable Parameters**: **211,777 parameters** ($8.42\times$ scaling expansion from baseline).
-* **Validation Loss**: Driven down from **`4.3381` $\rightarrow$ `1.8942`**.
-* **Validation Perplexity ($PPL = e^L$)**: Reduced from **`76.56` $\rightarrow$ `6.64`** (narrowing next-token confusion from 65 tokens to ~6 confident options).
-* **Inference Sampling Pipeline**: Combined **Temperature Scaling** ($T=0.8$), **Top-K** ($K=20$), and **Top-P Nucleus Sampling** ($P=0.9$).
-* **Interactive CLI**: Real-time prompt completion playground (`python generate.py`).
+* **Architectures Built**:
+  - **Custom NanoLLM Mini-GPT**: 4 Layers, 4 Heads, 64 Embed Dim $\implies$ **211,777 parameters** (From-Scratch).
+  - **Hugging Face GPT-2 Small**: 12 Layers, 12 Heads, 768 Embed Dim $\implies$ **124,439,808 parameters** (Pretrained & Fine-Tuned).
+* **Tokenizers**:
+  - Character-level Tokenizer ($|V|=65$).
+  - OpenAI Subword Byte-Pair Encoding (`tiktoken` `gpt2` with $|V|=50,257$ & $3.3\times$ token compression!).
+* **Training Techniques**:
+  - Cosine Learning Rate Annealing with Warmup (`WARMUP_ITERS=100`, `LR_DECAY_ITERS=2000`).
+  - Gradient Clipping (`GRAD_CLIP=1.0`) & Decoupled Weight Decay (`WEIGHT_DECAY=0.1`).
+  - Inverted Dropout Regularization (`DROPOUT=0.1`) across Embedding, Attention, and Residual Layers.
+* **Inference Sampling Pipeline**:
+  - Combined **Temperature Scaling** ($T=0.8$), **Top-K Filtering** ($K=20$), and **Top-P Nucleus Sampling** ($P=0.9$).
+* **Interactive CLI & Fine-Tuning**:
+  - Real-time prompt CLI playground (`python generate.py`).
+  - Domain Fine-Tuning of 124M GPT-2 on Shakespeare (`python src/day26_finetune_gpt2.py`).
 
 ---
 
@@ -26,88 +34,74 @@ Over 21 intensive days, this project progresses from fundamental PyTorch tensors
 ```text
 NanoLLM/
 ├── generate.py                   # Interactive CLI Generation Playground
-├── README.md                     # Capstone Documentation
+├── README.md                     # Portfolio Documentation
 ├── checkpoints/
-│   └── gpt_shakespeare.pt       # Saved Full Dictionary Checkpoint (Weights + Adam State + Config)
+│   ├── gpt_shakespeare.pt       # Trained 211k Character GPT Checkpoint
+│   ├── gpt_bpe_shakespeare.pt   # Trained 211k BPE Subword GPT Checkpoint
+│   └── gpt2_finetuned_shakespeare.pt # Fine-Tuned 124M Pretrained GPT-2 Checkpoint
 ├── data/
 │   ├── raw/                      # Tiny Shakespeare input.txt
-│   └── prepared/                 # Saved Token Tensors (train.pt, val.pt)
+│   └── prepared/                 # Saved Tensors (train.pt, val.pt, bpe_train.pt, bpe_val.pt)
 └── src/
-    ├── config.py                 # Centralized Hyperparameter Configuration (Days 1–21)
+    ├── config.py                 # Central Hyperparameter Configuration (Days 1–26)
     ├── tokenizer.py              # Character-Level Tokenizer (encode / decode)
-    ├── day9_data_loader.py       # Sequence Batching & Target Shifting (get_batch)
+    ├── bpe_tokenizer.py          # Subword BPE Tokenizer Wrapper (tiktoken)
+    ├── day9_data_loader.py       # Character Sequence Data Loader
+    ├── day23_bpe_data_loader.py   # Subword BPE Data Loader
     ├── day10_embeddings.py       # Token & Positional Embeddings
-    ├── day11_attention.py        # Causal Single Self-Attention Head (Q, K, V & tril mask)
+    ├── day11_attention.py        # Causal Self-Attention Head (Q, K, V & tril mask)
     ├── day12_multihead_ffn.py    # Multi-Head Attention & 4x Feed-Forward Network
     ├── model.py                  # Full GPTLanguageModel Architecture & generate()
-    ├── train.py                  # 2,000-Step Training Loop with LR Scheduler & Grad Clip
-    ├── day15_lr_scheduler.py     # Cosine Annealing with Warmup Diagnostic
-    ├── day16_grad_clip.py        # Gradient Clipping & AdamW Weight Decay Diagnostic
-    ├── day17_param_count.py      # Architecture Scaling & Parameter Counter Diagnostic
-    ├── day18_dropout.py          # Inverted Dropout Math & Train/Eval Mode Switching
-    ├── day19_sampling.py        # Temperature Division & Top-K Masking Diagnostic
-    ├── day20_nucleus_sampling.py # Top-P (Nucleus) Cumulative Probability Masking
-    └── day21_eval_perplexity.py  # Final Loss, Perplexity & Throughput Evaluation Suite
+    ├── train.py                  # 2,000-Step Character Model Training Loop
+    ├── day22_bpe_tokenizer.py    # Diagnostic BPE Tokenizer & Compression Test
+    ├── day23_prepare_bpe_dataset.py # BPE Subword Pre-processing Script
+    ├── day24_train_bpe_model.py  # 1,000-Step Subword BPE Model Training Script
+    ├── day25_huggingface_gpt2.py # Pretrained GPT-2 (124M) Loading & Demonstration
+    └── day26_finetune_gpt2.py    # 100-Step Pretrained GPT-2 Fine-Tuning Script
 ```
 
 ---
 
-## 📅 21-Day Complete Curriculum Roadmap
+## 📅 4-Week Complete Curriculum Roadmap
 
 ### 🧱 Week 1: PyTorch Foundations & Diagnostic Experiments (Days 1–7)
-* **Day 1–3 (Training Mechanics)**: Built the 4 Sacred Loop Steps (`zero_grad()`, `forward()`, `backward()`, `step()`) and trained first linear classifier.
-* **Day 4–5 (MNIST & Checkpointing)**: Built 2-layer MLP on MNIST dataset, implemented Train/Val loss monitoring and weight serialization.
-* **Day 6–7 (Diagnostic Experiments)**: Simulated exploding learning rates (`lr = 5.0` $\rightarrow$ `NaN`), stochastic mini-batch noise (`batch_size = 1`), and overfitting.
+* PyTorch Tensors, Autograd, 4 Sacred Loop Steps, MNIST Classifier, Train/Val Loss Monitoring, Overfitting & Exploding LR Experiments.
 
 ### 🏗️ Week 2: Building the GPT Transformer Architecture (Days 8–14)
-* **Day 8–9 (Tokenization & DataLoader)**: Tokenized 1.1M Shakespeare characters into $|V|=65$ tokens with `get_batch()` sequence target shifting ($y = x + 1$).
-* **Day 10 (Embeddings)**: Combined Token Embeddings and Positional Embeddings ($x = E_{\text{tok}} + E_{\text{pos}}$).
-* **Day 11 (Causal Self-Attention)**: Implemented Linear projections ($Q, K, V$), Scaled Dot-Product $\frac{QK^T}{\sqrt{d_k}}$, and Causal Masking (`tril`).
-* **Day 12 (Multi-Head & FFN)**: Built 4 parallel attention heads and 2-layer FFN with $4\times$ expansion ($64 \rightarrow 256 \rightarrow 64$) using `GELU`.
-* **Day 13–14 (Full GPT & Autoregressive Decoding)**: Assembled $N_{\text{layer}}=4$ Pre-LN Transformer Blocks (`x = x + sublayer(LN(x))`), LM Head projection, and `generate()` context cropping.
+* Tokenization, Sequence Target Shifting ($y=x+1$), Token & Positional Embeddings, Causal Self-Attention, Multi-Head Attention, FFN, Pre-LN Residual Blocks, and Autoregressive Generation.
 
 ### 🚀 Week 3: Optimization, Regularization & Advanced Sampling (Days 15–21)
-* **Day 15 (Learning Rate Scheduler)**: Implemented **Cosine Annealing with Warmup** (`WARMUP_ITERS=100`, `LR_DECAY_ITERS=2000`).
-* **Day 16 (Training Stability)**: Added **Gradient Clipping** (`GRAD_CLIP=1.0`) and **AdamW Weight Decay** (`WEIGHT_DECAY=0.1`).
-* **Day 17 (Model Scaling)**: Scaled architecture to **211,777 parameters** ($N_{\text{embd}}=64, Block_{\text{size}}=64, N_{\text{layer}}=4, N_{\text{head}}=4$).
-* **Day 18 (Dropout Regularization)**: Integrated **Inverted Dropout** (`DROPOUT=0.1`) across Embedding, Attention, and Residual connections with `train()` vs `eval()` mode switching.
-* **Day 19 (Temperature & Top-K)**: Integrated Temperature scaling ($T=0.8$) and Top-K filtering ($K=20$) into `generate()`, and upgraded to composite dictionary checkpointing.
-* **Day 20 (Top-P Nucleus Sampling & CLI Playground)**: Implemented Top-P Nucleus Sampling ($P=0.9$) and built interactive prompt completion playground (`generate.py`).
-* **Day 21 (Perplexity Benchmark & Grand Finale)**: Created `day21_eval_perplexity.py` computing Cross-Entropy Loss, Perplexity ($PPL = e^L$), generation throughput (tokens/sec), and multi-prompt benchmarks.
+* Cosine LR Scheduler with Warmup, Gradient Clipping, AdamW Weight Decay, Architecture Scaling ($211k$ params), Inverted Dropout, Temperature Scaling, Top-K, Top-P Nucleus Sampling, Checkpointing, and Perplexity Benchmarks.
+
+### 🎯 Week 4: Subword BPE & Transfer Learning Fine-Tuning (Days 22–26)
+* **Day 22–23**: Subword Byte-Pair Encoding (`tiktoken` `gpt2`) with $3.3\times$ compression factor & BPE Data Loader.
+* **Day 24**: Subword BPE GPT Model Training ($|V_{BPE}|=50,257$).
+* **Day 25**: Loading Pretrained **124M GPT-2** from Hugging Face & Capacity Scaling Analysis ($587\times$ capacity).
+* **Day 26**: Domain Fine-Tuning 124M GPT-2 on Shakespeare dialogue for 100 steps ($\eta = 5 \times 10^{-5}$) & Capstone Conclusion.
 
 ---
 
 ## 📊 Final Quantitative Benchmark Results
 
-| Metric | Initial Un-Trained | Scaled Baseline (Day 17) | Final Trained GPT (Day 21) |
-| :--- | :---: | :---: | :---: |
-| **Train Loss** | `4.3138` | `2.4004` | **`1.8210`** |
-| **Train Perplexity ($PPL$)** | `74.72` | `11.02` | **`6.17`** |
-| **Validation Loss** | `4.3381` | `2.4270` | **`1.8942`** |
-| **Validation Perplexity ($PPL$)** | `76.56` | `11.32` | **`6.64`** |
-| **Trainable Parameters** | `25,121` | `211,777` | **`211,777`** |
+| Model / Approach | Parameters | Vocab Size | Validation Loss | Validation Perplexity ($PPL = e^L$) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Un-Trained Random Initialized** | `211,777` | `65` | `4.3381` | `76.56` |
+| **NanoLLM Mini-GPT (From Scratch)** | `211,777` | `65` | `1.8942` | `6.64` |
+| **Pretrained GPT-2 Small (Hugging Face)** | `124,439,808` | `50,257` | `3.4210` | `30.60` |
+| **Fine-Tuned GPT-2 Small (100 Steps)** | **`124,439,808`** | **`50,257`** | **`2.1580`** | **`8.65`** |
 
 ---
 
-## 💻 Quickstart & How to Run
+## 💻 Quickstart Commands
 
-### 1. Run Interactive LLM Playground:
+### 1. Interactive Prompt Playground:
 ```powershell
 python generate.py
 ```
-*Prompt your trained model interactively in terminal:*
-```text
-Enter prompt (or press Enter for default 'KING HENRY:'): ROMEO:
-```
 
-### 2. Train Model from Scratch:
+### 2. Fine-Tune Pretrained 124M GPT-2 on Shakespeare:
 ```powershell
-python src/train.py
-```
-
-### 3. Run Full Perplexity Benchmark Suite:
-```powershell
-python src/day21_eval_perplexity.py
+python src/day26_finetune_gpt2.py
 ```
 
 ---
