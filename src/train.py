@@ -67,11 +67,24 @@ for iter in range(1, max_iters + 1):
 
 print("\nTraining complete!")
 
-# 3. Save Model Checkpoint
+# 3. Save Comprehensive Model & Optimizer Checkpoint (Task 19.5)
 os.makedirs(config.CHECKPOINT_DIR, exist_ok=True)
 checkpoint_path = os.path.join(config.CHECKPOINT_DIR, 'gpt_shakespeare.pt')
-torch.save(model.state_dict(), checkpoint_path)
-print(f"Model saved to '{checkpoint_path}'")
+checkpoint = {
+    'step': max_iters,
+    'model_state_dict': model.state_dict(),
+    'optimizer_state_dict': optimizer.state_dict(),
+    'train_loss': losses['train'].item() if isinstance(losses['train'], torch.Tensor) else float(losses['train']),
+    'val_loss': losses['val'].item() if isinstance(losses['val'], torch.Tensor) else float(losses['val']),
+    'config': {
+        'n_embd': config.N_EMBD,
+        'block_size': config.BLOCK_SIZE,
+        'n_layer': config.N_LAYER,
+        'num_heads': config.NUM_HEADS
+    }
+}
+torch.save(checkpoint, checkpoint_path)
+print(f"Comprehensive Checkpoint saved to '{checkpoint_path}'")
 
 # 4. Generate Shakespeare Text from Trained Model!
 print("\n" + "=" * 50)

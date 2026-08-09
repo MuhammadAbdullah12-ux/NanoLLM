@@ -32,6 +32,9 @@ GRAD_CLIP = 1.0        # Maximum allowed gradient norm threshold
 WEIGHT_DECAY = 0.1     # Decoupled L2 regularization coefficient for AdamW
 DROPOUT = 0.1          # Probability of zeroing activations during training (10%)
 
+TEMPERATURE = 0.8      # Logit scaling factor (lower = conservative, higher = creative)
+TOP_K = 20             # Truncate sampling pool to top K highest probability tokens
+
 # Ensure output directories exist automatically upon import
 os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(PREPARED_DATA_DIR, exist_ok=True)
