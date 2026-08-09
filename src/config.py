@@ -34,6 +34,7 @@ DROPOUT = 0.1          # Probability of zeroing activations during training (10%
 
 TEMPERATURE = 0.8      # Logit scaling factor (lower = conservative, higher = creative)
 TOP_K = 20             # Truncate sampling pool to top K highest probability tokens
+TOP_P = 0.9            # Nucleus sampling threshold (keep top tokens up to cumulative prob 90%)
 
 # Ensure output directories exist automatically upon import
 os.makedirs(DATA_DIR, exist_ok=True)

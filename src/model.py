@@ -104,8 +104,8 @@ class GPTLanguageModel(nn.Module):
 
         return logits, loss
 
-    # --- TASK 19.4 UPDATE: AUTOREGRESSIVE GENERATION WITH TEMPERATURE & TOP-K ---
-    def generate(self, idx, max_new_tokens, temperature=config.TEMPERATURE, top_k=config.TOP_K):
+    # --- TASK 20.4 UPDATE: AUTOREGRESSIVE GENERATION WITH TEMP, TOP-K & TOP-P ---
+    def generate(self, idx, max_new_tokens, temperature=config.TEMPERATURE, top_k=config.TOP_K, top_p=config.TOP_P):
         # idx is (B, T) array of indices in current context
         for _ in range(max_new_tokens):
             # Crop idx to the last block_size tokens so position embeddings stay in bounds
@@ -117,14 +117,27 @@ class GPTLanguageModel(nn.Module):
             # Focus only on the last time step logits: (B, T, C) -> (B, C)
             logits = logits[:, -1, :]
             
-            # Apply Temperature scaling
+            # 1. Apply Temperature scaling
             if temperature > 0:
                 logits = logits / temperature
                 
-            # Apply Top-K filtering
+            # 2. Apply Top-K filtering
             if top_k is not None:
                 v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
                 logits[logits < v[:, [-1]]] = float('-inf')
+
+            # 3. Apply Top-P (Nucleus) filtering
+            if top_p is not None and top_p < 1.0:
+                sorted_logits, sorted_indices = torch.sort(logits, descending=True, dim=-1)
+                sorted_probs = F.softmax(sorted_logits, dim=-1)
+                cumulative_probs = torch.cumsum(sorted_probs, dim=-1)
+                
+                sorted_indices_to_remove = cumulative_probs > top_p
+                sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[..., :-1].clone()
+                sorted_indices_to_remove[..., 0] = 0
+                
+                indices_to_remove = sorted_indices_to_remove.scatter(1, sorted_indices, sorted_indices_to_remove)
+                logits[indices_to_remove] = float('-inf')
             
             # Convert raw logits to probability distribution
             probs = F.softmax(logits, dim=-1)
