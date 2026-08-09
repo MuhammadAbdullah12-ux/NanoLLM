@@ -12,7 +12,8 @@ CHECKPOINT_DIR = 'checkpoints'
 RUN_LOGS_DIR = 'experiments/run_logs'
 
 # 3. Scaled GPT Model Architecture Parameters (Task 17.2)
-VOCAB_SIZE = 65   # Unique characters in Tiny Shakespeare
+VOCAB_SIZE = 65        # Unique characters in Tiny Shakespeare (Char model)
+VOCAB_SIZE_BPE = 50257 # Unique BPE subword tokens in GPT-2 tiktoken (BPE model)
 N_EMBD = 64       # Scaled embedding vector dimension (was 32)
 BLOCK_SIZE = 64   # Scaled context window length (was 8)
 NUM_HEADS = 4     # Number of parallel multi-head attention heads

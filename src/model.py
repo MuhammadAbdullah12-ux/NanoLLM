@@ -76,14 +76,14 @@ class Block(nn.Module):
 
 # 5. Complete GPT Language Model Architecture
 class GPTLanguageModel(nn.Module):
-    def __init__(self):
+    def __init__(self, vocab_size=config.VOCAB_SIZE):
         super().__init__()
-        self.token_embedding_table    = nn.Embedding(config.VOCAB_SIZE, config.N_EMBD)
+        self.token_embedding_table    = nn.Embedding(vocab_size, config.N_EMBD)
         self.position_embedding_table = nn.Embedding(config.BLOCK_SIZE, config.N_EMBD)
         self.embd_dropout = nn.Dropout(config.DROPOUT)  # Task 18.4: Embedding Dropout
         self.blocks  = nn.Sequential(*[Block(config.N_EMBD, config.NUM_HEADS) for _ in range(config.N_LAYER)])
         self.ln_f    = nn.LayerNorm(config.N_EMBD)
-        self.lm_head = nn.Linear(config.N_EMBD, config.VOCAB_SIZE)
+        self.lm_head = nn.Linear(config.N_EMBD, vocab_size)
 
     def forward(self, idx, targets=None):
         B, T = idx.shape
