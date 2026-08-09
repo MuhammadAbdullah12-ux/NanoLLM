@@ -1,6 +1,6 @@
 import os
 
-# Central Configuration for NanoLLM & GPT Model Experiments
+# Central Configuration for NanoLLM & GPT Model Experiments (Days 1–21 Finalized)
 
 # 1. System & Reproducibility Settings
 SEED = 42
