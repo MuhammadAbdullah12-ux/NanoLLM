@@ -82,7 +82,7 @@ export default function DemoPage() {
             {selectedModel === "nanollm-211k" && <CheckCircle2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />}
           </div>
           <h3 className="font-bold text-slate-900 dark:text-white text-base pt-2">NanoLLM Mini-GPT</h3>
-          <p className="text-xs text-slate-600 dark:text-slate-400 pt-1">211,777 parameters | $|V| = 65$ / BPE | Fast local inference</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 pt-1">211,777 parameters | Vocab Size: 65 / BPE | Fast local inference</p>
         </button>
 
         <button
@@ -100,7 +100,7 @@ export default function DemoPage() {
             {selectedModel === "gpt2-124m" && <CheckCircle2 className="w-5 h-5 text-purple-600 dark:text-purple-400" />}
           </div>
           <h3 className="font-bold text-slate-900 dark:text-white text-base pt-2">Fine-Tuned GPT-2</h3>
-          <p className="text-xs text-slate-600 dark:text-slate-400 pt-1">124,439,808 parameters | $|V_{BPE}| = 50,257$ | Hugging Face Cloud</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 pt-1">124,439,808 parameters | Vocab Size: 50,257 | Hugging Face Cloud</p>
         </button>
       </div>
 
