@@ -1,4 +1,4 @@
-import { User, CheckCircle2 } from "lucide-react";
+import { User, CheckCircle2, Mail, ExternalLink, Award, Sparkles, Cpu, Layers } from "lucide-react";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -16,24 +16,55 @@ export default function AboutPage() {
     "Subword Byte-Pair Encoding Tokenization (tiktoken)",
     "Cosine LR Annealing, AdamW & Regularization",
     "Hugging Face Transformers & Model Fine-Tuning",
-    "Full-Stack Web Development (Next.js, React, Tailwind)"
+    "Full-Stack Web Development (Next.js 14, React, Tailwind CSS)",
+    "Serverless REST API Integration & Vercel Deployment",
+    "Quantitative Model Benchmarking & Perplexity Evaluation"
   ];
 
   return (
-    <div className="space-y-8 py-6 max-w-4xl mx-auto">
-      <div className="space-y-3 text-center sm:text-left">
+    <div className="space-y-10 py-6 max-w-4xl mx-auto">
+      
+      {/* Header Bio */}
+      <div className="space-y-4 text-center sm:text-left">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-100 dark:bg-indigo-950/80 border border-indigo-300 dark:border-indigo-800/60 text-indigo-700 dark:text-indigo-400 text-xs font-semibold">
           <User className="w-3.5 h-3.5" />
-          <span>Freelance AI & Software Engineer</span>
+          <span>Freelance AI & Full-Stack Software Engineer</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">About the Author</h1>
-        <p className="text-slate-600 dark:text-slate-400 text-sm max-w-2xl">
-          Hi! I'm Muhammad Abdullah. I specialize in building custom AI architectures, fine-tuning foundation models, and deploying modern full-stack web applications.
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">Muhammad Abdullah</h1>
+        <p className="text-slate-600 dark:text-slate-300 text-base max-w-2xl leading-relaxed">
+          I specialize in building custom Deep Learning architectures from scratch in PyTorch, fine-tuning large foundation models, and deploying modern full-stack web applications on Vercel and cloud platforms.
         </p>
       </div>
 
+      {/* Freelance Offerings Card */}
+      <div className="bg-gradient-to-r from-indigo-900 to-purple-900 text-white rounded-3xl p-8 space-y-4 shadow-xl">
+        <div className="flex items-center gap-2 text-indigo-300 text-xs font-mono font-bold uppercase tracking-wider">
+          <Sparkles className="w-4 h-4 text-indigo-400" />
+          <span>Freelance Services</span>
+        </div>
+        <h2 className="text-2xl font-bold">Looking for Custom AI or Full-Stack Engineering?</h2>
+        <p className="text-sm text-indigo-100 leading-relaxed max-w-2xl">
+          Whether you need a custom Small Language Model trained on domain data, fine-tuning of open-source foundation models (LLaMA, GPT-2, Mistral), or a high-end Next.js web platform, I deliver production-ready code with complete transparency.
+        </p>
+        <div className="pt-2 flex flex-wrap gap-4">
+          <a
+            href="https://github.com/MuhammadAbdullah12-ux"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-indigo-950 font-bold text-xs hover:bg-slate-100 transition-all shadow-md"
+          >
+            <GithubIcon className="w-4 h-4 text-indigo-900" />
+            <span>GitHub Profile</span>
+          </a>
+        </div>
+      </div>
+
+      {/* Core Technical Skills */}
       <div className="bg-white dark:bg-slate-900/60 border border-slate-300 dark:border-slate-800/80 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white">Core Technical Expertise</h2>
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <Award className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <span>Core Technical Competencies</span>
+        </h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {skills.map((skill, idx) => (
@@ -43,19 +74,8 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
-
-        <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-4">
-          <a
-            href="https://github.com/MuhammadAbdullah12-ux/NanoLLM"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-all shadow-md shadow-indigo-500/20"
-          >
-            <GithubIcon className="w-4 h-4" />
-            <span>Explore GitHub Profile</span>
-          </a>
-        </div>
       </div>
+
     </div>
   );
 }
