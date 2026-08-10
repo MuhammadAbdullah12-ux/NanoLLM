@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Cpu, Terminal, Layers, BarChart3, Play, User } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -70,13 +71,14 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* GitHub CTA Button */}
+          {/* Theme Toggle & GitHub CTA Button */}
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <a
               href="https://github.com/MuhammadAbdullah12-ux/NanoLLM"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-200 transition-all hover:border-slate-600 shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 dark:bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-200 transition-all hover:border-slate-600 shadow-sm"
             >
               <GithubIcon className="w-4 h-4 text-indigo-400" />
               <span className="hidden sm:inline">GitHub Repo</span>
