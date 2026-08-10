@@ -59,7 +59,8 @@ export async function POST(req: NextRequest) {
       source: model === "nanollm-211k" ? "NanoLLM Mini-GPT (211k From-Scratch)" : "Fine-Tuned GPT-2 (124M)"
     });
 
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to generate text" }, { status: 500 });
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : "Failed to generate text";
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

@@ -39,7 +39,7 @@ export default function DemoPage() {
       } else {
         setOutput("Error: " + (data.error || "Failed to generate text."));
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       setOutput("Error connecting to API endpoint.");
     } finally {
       setLoading(false);
