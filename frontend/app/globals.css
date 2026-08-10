@@ -16,43 +16,110 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Light / Day mode styling overrides for instant transition */
-html:not(.dark) .bg-slate-950\/80 {
-  background-color: rgba(255, 255, 255, 0.9) !important;
+/* ==========================================================================
+   DAY / LIGHT MODE HIGH-CONTRAST VISIBILITY RULES
+   ========================================================================== */
+
+/* 1. Navbar & Branding Light Mode */
+html:not(.dark) header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #e2e8f0 !important;
 }
 
-html:not(.dark) .bg-slate-950 {
-  background-color: #ffffff !important;
+html:not(.dark) .bg-clip-text {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: #0f172a !important;
+  color: #0f172a !important;
 }
 
-html:not(.dark) .bg-slate-900\/60,
-html:not(.dark) .bg-slate-900\/40,
-html:not(.dark) .bg-slate-900\/80,
-html:not(.dark) .bg-slate-900 {
+html:not(.dark) nav {
   background-color: #f1f5f9 !important;
   border-color: #cbd5e1 !important;
 }
 
-html:not(.dark) .bg-slate-950\/80,
-html:not(.dark) .bg-slate-950 {
-  border-color: #e2e8f0 !important;
+html:not(.dark) nav a {
+  color: #334155 !important;
 }
 
+html:not(.dark) nav a:hover {
+  color: #0f172a !important;
+  background-color: #e2e8f0 !important;
+}
+
+/* GitHub Button in Light Mode */
+html:not(.dark) header a[href*="github"] {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #1e293b !important;
+}
+
+html:not(.dark) header a[href*="github"] svg {
+  color: #818cf8 !important;
+}
+
+/* 2. Cards & Container Backgrounds */
+html:not(.dark) .bg-slate-900\/60,
+html:not(.dark) .bg-slate-900\/40,
+html:not(.dark) .bg-slate-900\/80,
+html:not(.dark) .bg-slate-900 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
+}
+
+html:not(.dark) .bg-slate-950 {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* 3. Text & Heading Contrast in Light Mode */
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) h3,
 html:not(.dark) .text-white {
   color: #0f172a !important;
 }
 
+html:not(.dark) p,
+html:not(.dark) .text-slate-300,
 html:not(.dark) .text-slate-400 {
-  color: #475569 !important;
-}
-
-html:not(.dark) .text-slate-300 {
   color: #334155 !important;
 }
 
-html:not(.dark) .border-slate-800,
-html:not(.dark) .border-slate-800\/80,
-html:not(.dark) .border-slate-800\/60,
-html:not(.dark) .border-slate-700\/80 {
+html:not(.dark) .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* 4. Textarea, Inputs, Sliders & Code Blocks in Light Mode */
+html:not(.dark) textarea,
+html:not(.dark) input[type="text"] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+  font-weight: 500 !important;
+}
+
+html:not(.dark) textarea::placeholder {
+  color: #64748b !important;
+}
+
+html:not(.dark) .font-mono.text-indigo-300 {
+  color: #3730a3 !important;
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) code {
+  color: #3730a3 !important;
+}
+
+/* 5. Footer Contrast */
+html:not(.dark) footer {
+  background-color: #f1f5f9 !important;
   border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) footer p,
+html:not(.dark) footer a {
+  color: #475569 !important;
 }
