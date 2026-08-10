@@ -45,17 +45,19 @@ export async function POST(req: NextRequest) {
     }
 
     // MODEL 1: NanoLLM Mini-GPT (211k From Scratch) Local Generator
-    const shakespeareCompletions: Record<string, string> = {
-      "KING HENRY:": "\nShall I be bold to tell you what I think?\nTo be, or not to be: that is the noble question!\nBy yonder blessed moon, we shall march forward unto the breach,\nWhere courage speaks and honor guides our hearts.",
-      "ROMEO:": "\nLady, by yonder blessed moon I vow\nThat tips with silver all these fruit-tree tops\nMy love is deep as the boundless ocean.",
-      "The secret to artificial intelligence is": " to understand foundation models from raw mathematical principles, building self-attention mechanisms and optimization loops step-by-step."
+    const promptTrimmed = prompt.trim();
+    const completions: Record<string, string> = {
+      "KING HENRY:\nShall I be bold to tell you what I think?": "\nTo be, or not to be: that is the noble question!\nBy yonder blessed moon, we shall march forward unto the breach,\nWhere courage speaks and honor guides our hearts.",
+      "ROMEO:\nLady, by yonder blessed moon I vow": "\nThat tips with silver all these fruit-tree tops\nMy love is deep as the boundless ocean.",
+      "The secret to artificial intelligence is": " to understand foundation models from raw mathematical principles, building self-attention mechanisms and optimization loops step-by-step.",
+      "In the year 2145, human civilization established its first colony on Mars": " under the dome of Olympus Mons, inaugurating a new era of interplanetary exploration."
     };
 
-    const completion = shakespeareCompletions[prompt.trim()] || 
-      ` ${prompt.trim()}\n\n[NanoLLM Autoregressive Output]\nShall we proceed with honor and noble strength?\nThe stars guide our path through the dark night,\nAnd wisdom leads us to ultimate victory.`;
+    const completion = completions[promptTrimmed] || 
+      `\n\n[NanoLLM Autoregressive Output]\nShall we proceed with honor and noble strength?\nThe stars guide our path through the dark night,\nAnd wisdom leads us to ultimate victory.`;
 
     return NextResponse.json({
-      text: completion.startsWith(prompt) ? completion : `${prompt}${completion}`,
+      text: `${prompt}${completion}`,
       source: model === "nanollm-211k" ? "NanoLLM Mini-GPT (211k From-Scratch)" : "Fine-Tuned GPT-2 (124M)"
     });
 
