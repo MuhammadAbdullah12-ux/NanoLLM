@@ -12,27 +12,27 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 border-t border-slate-800/80 text-slate-400 text-xs py-12">
+    <footer className="bg-slate-100 dark:bg-slate-950 border-t border-slate-300 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 text-xs py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           
           {/* Col 1: Brand pitch */}
           <div className="space-y-3 md:col-span-2">
             <div className="flex items-center gap-2">
-              <Cpu className="w-5 h-5 text-indigo-400" />
-              <span className="font-bold text-base text-white">NanoLLM Showcase</span>
+              <Cpu className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <span className="font-bold text-base text-slate-900 dark:text-white">NanoLLM Showcase</span>
             </div>
-            <p className="text-slate-400 leading-relaxed max-w-md">
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed max-w-md">
               A 4-week, 26-day educational journey building an autoregressive Small Language Model (GPT Transformer architecture) from scratch in raw PyTorch and fine-tuning on subwords.
             </p>
             <div className="flex items-center gap-2 pt-2">
-              <span className="px-2.5 py-1 rounded-md bg-indigo-950/60 border border-indigo-800/50 text-indigo-400 font-mono text-[10px]">
+              <span className="px-2.5 py-1 rounded-md bg-indigo-100 dark:bg-indigo-950/60 border border-indigo-300 dark:border-indigo-800/50 text-indigo-700 dark:text-indigo-400 font-mono text-[10px]">
                 211,777 Params
               </span>
-              <span className="px-2.5 py-1 rounded-md bg-purple-950/60 border border-purple-800/50 text-purple-400 font-mono text-[10px]">
+              <span className="px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-950/60 border border-purple-300 dark:border-purple-800/50 text-purple-700 dark:text-purple-400 font-mono text-[10px]">
                 Perplexity 6.64
               </span>
-              <span className="px-2.5 py-1 rounded-md bg-emerald-950/60 border border-emerald-800/50 text-emerald-400 font-mono text-[10px]">
+              <span className="px-2.5 py-1 rounded-md bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-400 font-mono text-[10px]">
                 PyTorch + Next.js
               </span>
             </div>
@@ -40,27 +40,27 @@ export default function Footer() {
 
           {/* Col 2: Navigation Links */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-slate-200 uppercase tracking-wider text-[11px]">Pages</h3>
-            <ul className="space-y-2">
-              <li><Link href="/" className="hover:text-indigo-400 transition-colors">Home & Overview</Link></li>
-              <li><Link href="/journey" className="hover:text-indigo-400 transition-colors">Build Journey (Days 1–26)</Link></li>
-              <li><Link href="/architecture" className="hover:text-indigo-400 transition-colors">Transformer Architecture</Link></li>
-              <li><Link href="/results" className="hover:text-indigo-400 transition-colors">Benchmark Charts & Results</Link></li>
-              <li><Link href="/demo" className="hover:text-indigo-400 transition-colors">Live Model Demo</Link></li>
-              <li><Link href="/about" className="hover:text-indigo-400 transition-colors">About & Freelance Contact</Link></li>
+            <h3 className="font-semibold text-slate-900 dark:text-slate-200 uppercase tracking-wider text-[11px]">Pages</h3>
+            <ul className="space-y-2 font-medium">
+              <li><Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home & Overview</Link></li>
+              <li><Link href="/journey" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Build Journey (Days 1–26)</Link></li>
+              <li><Link href="/architecture" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Transformer Architecture</Link></li>
+              <li><Link href="/results" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Benchmark Charts & Results</Link></li>
+              <li><Link href="/demo" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Live Model Demo</Link></li>
+              <li><Link href="/about" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">About & Freelance Contact</Link></li>
             </ul>
           </div>
 
           {/* Col 3: Resources & Socials */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-slate-200 uppercase tracking-wider text-[11px]">Resources</h3>
-            <ul className="space-y-2">
+            <h3 className="font-semibold text-slate-900 dark:text-slate-200 uppercase tracking-wider text-[11px]">Resources</h3>
+            <ul className="space-y-2 font-medium">
               <li>
                 <a
                   href="https://github.com/MuhammadAbdullah12-ux/NanoLLM"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors"
+                  className="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
                   <GithubIcon className="w-3.5 h-3.5" />
                   <span>GitHub Repository</span>
@@ -72,7 +72,7 @@ export default function Footer() {
                   href="https://huggingface.co/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors"
+                  className="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
                   <span>Hugging Face Hub</span>
                   <ExternalLink className="w-3 h-3 text-slate-500" />
@@ -83,7 +83,7 @@ export default function Footer() {
 
         </div>
 
-        <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+        <div className="pt-8 border-t border-slate-300 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
           <p>© 2026 NanoLLM Project. Built with PyTorch, Next.js 14, and Tailwind CSS.</p>
           <p className="flex items-center gap-1">
             Built with <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" /> by Muhammad Abdullah

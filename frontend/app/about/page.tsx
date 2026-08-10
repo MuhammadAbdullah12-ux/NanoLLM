@@ -22,29 +22,29 @@ export default function AboutPage() {
   return (
     <div className="space-y-8 py-6 max-w-4xl mx-auto">
       <div className="space-y-3 text-center sm:text-left">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-800/60 text-indigo-400 text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-100 dark:bg-indigo-950/80 border border-indigo-300 dark:border-indigo-800/60 text-indigo-700 dark:text-indigo-400 text-xs font-semibold">
           <User className="w-3.5 h-3.5" />
           <span>Freelance AI & Software Engineer</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white">About the Author</h1>
-        <p className="text-slate-400 text-sm max-w-2xl">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">About the Author</h1>
+        <p className="text-slate-600 dark:text-slate-400 text-sm max-w-2xl">
           Hi! I'm Muhammad Abdullah. I specialize in building custom AI architectures, fine-tuning foundation models, and deploying modern full-stack web applications.
         </p>
       </div>
 
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 sm:p-8 space-y-6">
-        <h2 className="text-xl font-bold text-white">Core Technical Expertise</h2>
+      <div className="bg-white dark:bg-slate-900/60 border border-slate-300 dark:border-slate-800/80 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white">Core Technical Expertise</h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {skills.map((skill, idx) => (
-            <div key={idx} className="flex items-center gap-2 text-xs text-slate-300 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+            <div key={idx} className="flex items-center gap-2 text-xs font-medium text-slate-800 dark:text-slate-200 p-3.5 rounded-xl bg-slate-100 dark:bg-slate-950/80 border border-slate-300 dark:border-slate-800">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
               <span>{skill}</span>
             </div>
           ))}
         </div>
 
-        <div className="pt-4 border-t border-slate-800 flex flex-wrap gap-4">
+        <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-4">
           <a
             href="https://github.com/MuhammadAbdullah12-ux/NanoLLM"
             target="_blank"
