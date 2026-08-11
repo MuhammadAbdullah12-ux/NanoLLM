@@ -83,10 +83,10 @@ export default function Footer() {
 
         </div>
 
-        <div className="pt-8 border-t border-slate-300 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
-          <p>© 2026 NanoLLM Project. Built with PyTorch, Next.js 14, and Tailwind CSS.</p>
-          <p className="flex items-center gap-1">
-            Built with <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" /> by Muhammad Abdullah
+        <div className="pt-8 border-t border-slate-300 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-600 dark:text-slate-400 font-medium text-xs">
+          <p>© 2026 NanoLLM Showcase. Open-Source Machine Learning Project.</p>
+          <p className="text-slate-700 dark:text-slate-300 font-semibold">
+            Developed by Muhammad Abdullah
           </p>
         </div>
       </div>
